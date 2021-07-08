@@ -55,6 +55,7 @@ public class DiscordChatListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+        DiscordSRV.api.callEvent(new DiscordGuildRawMessageReceivedEvent(event));
         // if message is from null author or self do not process
         if (event.getMember() == null || DiscordUtil.getJda() == null || event.getAuthor().equals(DiscordUtil.getJda().getSelfUser()))
             return;

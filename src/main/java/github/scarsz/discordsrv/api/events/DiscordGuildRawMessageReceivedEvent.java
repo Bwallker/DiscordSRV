@@ -23,25 +23,23 @@
 package github.scarsz.discordsrv.api.events;
 
 import lombok.Getter;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
-import java.util.List;
+public class DiscordGuildRawMessageReceivedEvent extends DiscordEvent<GuildMessageReceivedEvent> {
+    @Getter
+    private final User author;
+    @Getter private final TextChannel channel;
+    @Getter private final Guild guild;
+    @Getter private final Member member;
+    @Getter private final Message message;
 
-public class DiscordGuildMemberRoleAddEvent extends DiscordEvent<GuildMemberRoleAddEvent>{
-    @Getter private JDA jda;
-    @Getter private List<Role> roles;
-    @Getter private Member member;
-    @Getter private User user;
-
-    public DiscordGuildMemberRoleAddEvent(GuildMemberRoleAddEvent jdaEvent) {
+    public DiscordGuildRawMessageReceivedEvent(GuildMessageReceivedEvent jdaEvent) {
         super(jdaEvent.getJDA(), jdaEvent);
-        this.roles = jdaEvent.getRoles();
-        this.jda = jdaEvent.getJDA();
+        this.author = jdaEvent.getAuthor();
+        this.channel = jdaEvent.getChannel();
+        this.guild = jdaEvent.getGuild();
         this.member = jdaEvent.getMember();
-        this.user = jdaEvent.getUser();
+        this.message = jdaEvent.getMessage();
     }
 }
